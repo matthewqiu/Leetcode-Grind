@@ -1,0 +1,29 @@
+class Solution {
+    public int rangeSum(int[] nums, int n, int left, int right) {
+        int val = 0;
+        int[] firstSums = new int[n];
+        List<Integer> sums = new ArrayList<>();
+        for(int i = 0; i < nums.length; i++)
+        {
+            val += nums[i];
+            firstSums[i] = val;
+            sums.add(val);
+        }
+        for(int i = 1; i < nums.length; i++)
+        {
+            for(int j = i; j < firstSums.length; j++)
+            {
+                firstSums[j] -= nums[i-1];
+                sums.add(firstSums[j]);
+            }
+        }
+        Collections.sort(sums);
+        val = 0;
+        for(int i = left-1; i < right; i++)
+        {
+            val += sums.get(i);
+            val %= 1000000007;
+        }
+        return val;
+    }
+}
