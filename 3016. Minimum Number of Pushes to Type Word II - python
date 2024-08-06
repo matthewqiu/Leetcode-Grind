@@ -1,0 +1,19 @@
+class Solution:
+    def minimumPushes(self, word: str) -> int:
+        letterCount = {}
+        for letter in word:
+            if letter not in letterCount:
+                letterCount[letter] = 1
+            else:
+                letterCount[letter] += 1
+        sorted_dict = dict(sorted(letterCount.items(), key=lambda item: item[1], reverse=True))
+        count = 0
+        num = 0
+        press = 1
+        for key in sorted_dict.keys():
+            count += sorted_dict[key] * press
+            num += 1
+            if num > 7:
+                num = 0
+                press += 1
+        return count
