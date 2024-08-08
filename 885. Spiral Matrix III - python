@@ -1,0 +1,33 @@
+class Solution:
+    def spiralMatrixIII(self, rows: int, cols: int, rStart: int, cStart: int) -> List[List[int]]:
+        rCur = rStart
+        cCur = cStart
+        ans = [[rStart,cStart]]
+        total = rows * cols
+        count = 1
+        moveCounter = 0
+        maxMove = 1
+        maxMoveCounter = 0
+        direction = 0
+        while count != total:
+            direction %= 4
+            if direction == 0:
+                cCur += 1
+            elif direction == 1:
+                rCur += 1
+            elif direction == 2:
+                cCur -= 1
+            else:
+                rCur -= 1
+            moveCounter += 1
+            if moveCounter == maxMove:
+                moveCounter = 0
+                maxMoveCounter += 1
+                direction += 1
+                if maxMoveCounter == 2:
+                    maxMoveCounter = 0
+                    maxMove += 1
+            if -1 < rCur < rows and -1 < cCur < cols:
+                count += 1
+                ans.append([rCur,cCur])
+        return ans
