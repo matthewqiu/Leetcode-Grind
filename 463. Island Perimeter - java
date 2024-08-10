@@ -1,0 +1,109 @@
+class Solution {
+    public class Tuple{
+        private int row;
+        private int col;
+        public Tuple(int a, int b)
+        {
+            this.row = a;
+            this.col = b;
+        }
+        public int geta()
+        {
+            return row;
+        }
+        public int getb()
+        {
+            return col;
+        }
+    }
+    public int islandPerimeter(int[][] grid) {
+        int row = grid.length;
+        int col = grid[0].length;
+        Queue<Tuple> q = new LinkedList<>();
+        for(int i = 0; i < row; i++)
+        {
+            for(int j = 0; j < col; j++)
+            {
+                if(grid[i][j] == 1)
+                {
+                    Tuple tuple = new Tuple(i,j);
+                    grid[i][j] = 2;
+                    q.add(tuple);
+                    break;
+                }
+            }
+        }
+        int perimeter = 0;
+        while(!q.isEmpty())
+        {
+            Tuple cur = q.remove();
+            int qrow = cur.geta();
+            int qcol = cur.getb();
+            if(qrow-1 >= 0)
+            {
+                if(grid[qrow-1][qcol] > 0)
+                {
+                    if(grid[qrow-1][qcol] == 1)
+                    {
+                        Tuple t = new Tuple(qrow-1,qcol);
+                        grid[qrow-1][qcol] = 2;
+                        q.add(t);
+                    }
+                }
+                else
+                    perimeter++;
+            }
+            else
+                perimeter++;
+            if(qrow+1 < row)
+            {
+                if(grid[qrow+1][qcol] > 0)
+                {
+                    if(grid[qrow+1][qcol] == 1)
+                    {
+                        Tuple t = new Tuple(qrow+1,qcol);
+                        grid[qrow+1][qcol] = 2;
+                        q.add(t);
+                    }
+                }
+                else
+                    perimeter++;
+            }
+            else
+                perimeter++;
+            if(qcol-1 >= 0)
+            {
+                if(grid[qrow][qcol-1] > 0)
+                {
+                    if(grid[qrow][qcol-1] == 1)
+                    {
+                        Tuple t = new Tuple(qrow,qcol-1);
+                        grid[qrow][qcol-1] = 2;
+                        q.add(t);
+                    }
+                }
+                else
+                    perimeter++;
+            }
+            else
+                perimeter++;
+            if(qcol+1 < col)
+            {
+                if(grid[qrow][qcol+1] > 0)
+                {
+                    if(grid[qrow][qcol+1] == 1)
+                    {
+                        Tuple t = new Tuple(qrow,qcol+1);
+                        grid[qrow][qcol+1] = 2;
+                        q.add(t);
+                    }
+                }
+                else
+                    perimeter++;
+            }
+            else
+                perimeter++;
+        }
+        return perimeter;
+    }
+}
