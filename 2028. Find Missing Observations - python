@@ -1,0 +1,12 @@
+class Solution:
+    def missingRolls(self, rolls: List[int], mean: int, n: int) -> List[int]:
+        ans = []
+        total = (len(rolls) + n) * mean
+        for roll in rolls:
+            total -= roll
+        m = total / n
+        if m >= 1 and m <= 6:
+            for i in range(n):
+                ans.append(total//(n-i))
+                total -= total//(n-i)
+        return ans;
