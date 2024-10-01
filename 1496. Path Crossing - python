@@ -1,0 +1,13 @@
+class Solution:
+    def isPathCrossing(self, path: str) -> bool:
+        visited = {}
+        direction = {"N":(0,1), "E":(1,0), "S":(0,-1), "W":(-1,0)}
+        cur = (0,0)
+        visited[cur] = 1
+        for s in path:
+            cur = (cur[0] + direction[s][0],cur[1] + direction[s][1])
+            if cur in visited.keys():
+                return True
+            else:
+                visited[cur] = 1
+        return False
