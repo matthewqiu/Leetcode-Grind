@@ -1,0 +1,50 @@
+class Solution {
+    public boolean areSentencesSimilar(String sentence1, String sentence2) {
+        List<String> s1 = new ArrayList();
+        List<String> s2 = new ArrayList();
+        String word = "";
+        for(int i = 0; i < sentence1.length(); i++)
+        {
+            if(sentence1.charAt(i) != ' ')
+                word += sentence1.charAt(i);
+            else
+            {
+                s1.add(word);
+                word = "";
+            }
+        }
+        s1.add(word);
+        word = "";
+        for(int i = 0; i < sentence2.length(); i++)
+        {
+            if(sentence2.charAt(i) != ' ')
+                word += sentence2.charAt(i);
+            else
+            {
+                s2.add(word);
+                word = "";
+            }
+        }
+        s2.add(word);
+        int c1 = 0;
+        int b1 = s1.size()-1;
+        int b2 = s2.size()-1;
+        boolean ans = true;
+        while(c1 < b1+1 && c1 < b2+1)
+        {
+            if(s1.get(c1).equals(s2.get(c1)))
+                c1++;
+            else if(s1.get(b1).equals(s2.get(b2)))
+            {
+                b1--;
+                b2--;
+            }
+            else
+            {
+                ans = false;
+                break;
+            }
+        }
+        return ans; 
+    }
+}
