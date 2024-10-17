@@ -1,0 +1,46 @@
+class Solution {
+    public int maximumSwap(int num) {
+        int[] arr = new int[Integer.toString(num).length()];
+        int[] arr2 = new int[Integer.toString(num).length()];
+        int len = arr.length;
+        int max = 0;
+        int index = 0;
+        int ans = num;
+        for(int i = len-1; i >= 0; i--)
+        {
+            arr[i] = num % 10;
+            arr2[i] = arr[i];
+            num /= 10;
+        }
+        int temp = -1;
+        Arrays.sort(arr2);
+        for(int i = 0; i < len; i++)
+        {
+            if(arr2[len-1-i] != arr[i])
+            {
+                temp = i;
+                max = arr2[len-1-i];
+                break;
+            }
+        }
+        if(temp == -1)
+            return ans;
+        for(int i = len-1; i > temp; i--)
+        {
+            if(arr[i] == max)
+            {
+                index = i;
+                break;
+            }
+        }
+        arr[index] = arr[temp];
+        arr[temp] = max;
+        ans = 0;
+        for(int i = 0; i < len; i++)
+        {
+            ans *= 10;
+            ans += arr[i];
+        }
+        return ans;
+    }
+}
