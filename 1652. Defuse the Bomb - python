@@ -1,0 +1,25 @@
+class Solution:
+    def decrypt(self, code: List[int], k: int) -> List[int]:
+        aux  = []
+        l = k
+        if k == 0:
+            for i in range(len(code)):
+                code[i] = 0
+            return code  
+        else:
+            if l < 0:
+                l *= -1
+            val = 0
+            for j in range(1, l+1):
+                val += code[j]
+            aux.append(val)
+            for j in range(1, len(code)):
+                val = val - code[j] + code[(j+l)%len(code)]
+                aux.append(val)
+            print(aux)
+            for i in range(len(code)):
+                if k > 0:
+                    code[i] = aux[i]
+                else:
+                    code[i] = aux[(i+k-1)%len(code)]
+        return code     
